@@ -29,7 +29,7 @@ node('p2-team-jenkins-slave-14.ctct.net') {
             sh login
 
             when.buildingPR {
-                tagVersion = env.GIT_BRANCH_NAME
+                tagVersion = env.BRANCH_NAME
             }
 
             when.buildingMaster {
