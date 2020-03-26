@@ -89,13 +89,13 @@ node('p2-team-jenkins-slave-14.ctct.net') {
         """
         try {
             echo "i'm running integration tests here"
-            sleep time: 5, unit: 'MINUTES'
+            input 'click when you want integration tests to be done'
         } catch(Exception){
 
         } finally {
             when.buildingPR {
                 sh """
-                git pull
+                git pull origin master
                 rm -rf ${argoManifestLocation}
                 git add .
                 git commit -m "removing ${appBaseName} PR manifest"
