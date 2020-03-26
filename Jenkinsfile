@@ -50,9 +50,9 @@ node('p2-team-jenkins-slave-14.ctct.net') {
         def argoManifestLocation
 
         when.buildingPR {
-            argoManifestLocation = "pr-apps/sock-shop-${env.BRANCH_NAME}"
+            argoManifestLocation = "pr-apps/sock-shop-${env.BRANCH_NAME}".toLowerCase()
 
-            def appPRName = "${application.metadata.name}-${env.BRANCH_NAME}"
+            def appPRName = "${application.metadata.name}-${env.BRANCH_NAME}".toLowerCase()
             application.metadata.labels.release = 'pr'
             application.metadata.name = appPRName
             application.spec.destination.namespace = appPRName
