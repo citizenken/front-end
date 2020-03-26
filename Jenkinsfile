@@ -5,11 +5,12 @@ def when = new common.v1.When(this)
 def awsTools = new ctct.v1.AwsTools(this)
 
 def appBaseName = 'sock-shop-front-end'
+def tagVersion
 
 node('p2-team-jenkins-slave-14.ctct.net') {
-    def tagVersion
     def ecrRepo = "428791060841.dkr.ecr.us-east-1.amazonaws.com/${appBaseName}"
     def fullTagName
+
     dir('app-repo') {
         gitCmd.checkout()
 
@@ -28,7 +29,7 @@ node('p2-team-jenkins-slave-14.ctct.net') {
             sh login
 
             when.buildingPR {
-                tagVersion = "${env.GIT_BRANCH_NAME}"
+                tagVersion = env.BRANCH_NAME
             }
 
             when.buildingMaster {
@@ -50,12 +51,14 @@ node('p2-team-jenkins-slave-14.ctct.net') {
         def argoManifestLocation
 
         when.buildingPR {
-            argoManifestLocation = "pr-apps/sock-shop-${env.BRANCH_NAME}"
+            argoManifestLocation = "pr-apps/sock-shop-${env.BRANCH_NAME}".toLowerCase()
 
-            def appPRName = "${application.metadata.name}-${env.BRANCH_NAME}"
+            def appPRName = "${application.metadata.name}-${env.BRANCH_NAME}".toLowerCase()
             application.metadata.labels.release = 'pr'
+            application.metadata.labels.buildNumber = env.BUILD_NUMBER
             application.metadata.name = appPRName
             application.spec.destination.namespace = appPRName
+            namespace.metadata.name = appPRName
         }
 
         when.buildingMaster {
@@ -84,5 +87,24 @@ node('p2-team-jenkins-slave-14.ctct.net') {
         git commit -m "updating ${appBaseName} manifests"
         git push
         """
+        try {
+            echo "i'm running integration tests here"
+            input 'click when you want integration tests to be done'
+        } catch(Exception){
+
+        } finally {
+            when.buildingPR {
+                sh """
+                git pull origin master
+                rm -rf ${argoManifestLocation}
+                git add --all
+                git commit -m "removing ${appBaseName} PR manifest"
+                git push
+                """
+            }
+        }
+
+
+
     }
 }
