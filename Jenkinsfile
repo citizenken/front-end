@@ -5,11 +5,12 @@ def when = new common.v1.When(this)
 def awsTools = new ctct.v1.AwsTools(this)
 
 def appBaseName = 'sock-shop-front-end'
+def tagVersion
 
 node('p2-team-jenkins-slave-14.ctct.net') {
-    def tagVersion
     def ecrRepo = "428791060841.dkr.ecr.us-east-1.amazonaws.com/${appBaseName}"
     def fullTagName
+
     dir('app-repo') {
         gitCmd.checkout()
 
@@ -28,7 +29,7 @@ node('p2-team-jenkins-slave-14.ctct.net') {
             sh login
 
             when.buildingPR {
-                tagVersion = "${env.GIT_BRANCH_NAME}"
+                tagVersion = env.GIT_BRANCH_NAME
             }
 
             when.buildingMaster {
