@@ -78,7 +78,10 @@ node('p2-team-jenkins-slave-14.ctct.net') {
             ]
         ]
 
-        sh "rm -rf ${argoManifestLocation}"
+        sh """
+        rm -rf ${argoManifestLocation}/application.yaml
+        rm -rf ${argoManifestLocation}/namespace.yaml
+        """
         writeYaml file: "${argoManifestLocation}/application.yaml", data: application
         writeYaml file: "${argoManifestLocation}/namespace.yaml", data: namespace
 
