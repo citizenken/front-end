@@ -62,6 +62,7 @@ node('p2-team-jenkins-slave-14.ctct.net') {
         }
 
         when.buildingMaster {
+            application.metadata.labels.buildNumber = env.BUILD_NUMBER
             argoManifestLocation = "apps/sock-shop"
         }
 
