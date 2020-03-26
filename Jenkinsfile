@@ -97,7 +97,7 @@ node('p2-team-jenkins-slave-14.ctct.net') {
                 sh """
                 git pull origin master
                 rm -rf ${argoManifestLocation}
-                git add .
+                git add --all
                 git commit -m "removing ${appBaseName} PR manifest"
                 git push
                 """
