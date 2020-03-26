@@ -55,6 +55,7 @@ node('p2-team-jenkins-slave-14.ctct.net') {
 
             def appPRName = "${application.metadata.name}-${env.BRANCH_NAME}".toLowerCase()
             application.metadata.labels.release = 'pr'
+            application.metadata.labels.buildNumber = env.BUILD_NUMBER
             application.metadata.name = appPRName
             application.spec.destination.namespace = appPRName
             namespace.metadata.name = appPRName
