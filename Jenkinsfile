@@ -86,5 +86,24 @@ node('p2-team-jenkins-slave-14.ctct.net') {
         git commit -m "updating ${appBaseName} manifests"
         git push
         """
+        try {
+            echo "i'm running integration tests here"
+            sleep time: 5, unit: 'MINUTES'
+        } catch(Exception){
+
+        } finally {
+            when.buildingPR {
+                sh """
+                git pull
+                rm -rf ${argoManifestLocation}
+                git add .
+                git commit -m "removing ${appBaseName} PR manifest"
+                git push
+                """
+            }
+        }
+
+
+
     }
 }
