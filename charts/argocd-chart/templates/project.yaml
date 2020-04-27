@@ -1,0 +1,20 @@
+{{ if .Values.includeProject }}
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: {{ .Values.application.name }}
+  namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "-1"
+
+spec:
+  description: Example Project
+  # Allow manifests to deploy from any Git repos
+  sourceRepos:
+  - '*'
+  destinations:
+  - namespace: {{ .Values.application.name }}*
+    server: https://kubernetes.default.svc
+  - namespace: argo
+    server: https://kubernetes.default.svc
+{{ end }}
