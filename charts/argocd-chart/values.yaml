@@ -1,8 +1,0 @@
-application:
-  name: 'sock-shop-front-end'
-  targetRevision: chart_testing
-  repo: https://github.com/citizenken/front-end.git
-  path: charts/application-chart
-  envValues:
-    - values.yaml
-includeProject: true
