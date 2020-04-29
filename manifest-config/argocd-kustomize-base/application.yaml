@@ -9,7 +9,7 @@ spec:
   source:
     repoURL: https://github.com/citizenken/front-end.git
     targetRevision: chart_testing
-    path: helm-chart
+    path: manifest-config/application-chart
     helm:
       valueFiles: values.yaml
   destination:
