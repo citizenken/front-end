@@ -5,7 +5,7 @@ metadata:
   labels:
     release: stable
 spec:
-  project: default
+  project: sock-shop-front-end
   source:
     repoURL: https://github.com/citizenken/front-end.git
     targetRevision: HEAD
