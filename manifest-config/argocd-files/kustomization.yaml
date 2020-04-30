@@ -1,5 +1,3 @@
 resources:
   - ./application.yaml
-  - ./namespace.yaml
   - ./project.yaml
-  - ./role.yaml

@@ -9,6 +9,8 @@ image:
   tag: 0.3.12
   pullPolicy: IfNotPresent
 
+namespace: sock-shop-front-end
+
 argocd-chart:
   enabled: false
   environment_values: values.yaml

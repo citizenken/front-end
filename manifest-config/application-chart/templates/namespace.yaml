@@ -1,4 +1,4 @@
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: sock-shop-front-end
+  name: {{ .Values.namespace }}
