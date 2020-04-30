@@ -8,7 +8,7 @@ spec:
   project: default
   source:
     repoURL: https://github.com/citizenken/front-end.git
-    targetRevision: chart_testing
+    targetRevision: chart_testing_2
     path: manifest-config/application-chart
     helm:
       valueFiles: values.yaml
