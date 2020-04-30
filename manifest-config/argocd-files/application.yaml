@@ -1,0 +1,22 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: sock-shop-front-end
+  labels:
+    release: stable
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/citizenken/front-end.git
+    targetRevision: chart_testing_2
+    path: manifest-config/application-chart
+    helm:
+      valueFiles: values.yaml
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: sock-shop-front-end
+  syncPolicy:
+    automated:
+      prune: false
+      selfHeal: false
+    validate: true
