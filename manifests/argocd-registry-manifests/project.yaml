@@ -8,14 +8,13 @@ metadata:
 
 spec:
   clusterResourceWhitelist:
-  - group: ''
-    kind: Namespace    
+  - group: ""
+    kind: Namespace
   description: Example Project
-  # Allow manifests to deploy from any Git repos
-  sourceRepos:
-  - '*'
   destinations:
   - namespace: sock-shop-front-end*
     server: https://kubernetes.default.svc
   - namespace: argo
     server: https://kubernetes.default.svc
+  sourceRepos:
+  - '*'
