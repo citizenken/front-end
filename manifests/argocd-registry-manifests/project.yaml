@@ -10,7 +10,7 @@ spec:
   clusterResourceWhitelist:
   - group: ""
     kind: Namespace
-  description: Example Project
+  description: Lorelei is super cool project
   destinations:
   - namespace: sock-shop-front-end*
     server: https://kubernetes.default.svc
